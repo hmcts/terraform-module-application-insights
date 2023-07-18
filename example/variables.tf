@@ -1,3 +1,15 @@
 variable "env" {
-  default = "test"
+  default = "sandbox"
+}
+
+variable "product" {
+  default = "platops"
+}
+
+variable "builtFrom" {
+  default = "local"
+}
+
+variable "location" {
+  default = "UK South"
 }
