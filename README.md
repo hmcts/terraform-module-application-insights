@@ -7,7 +7,7 @@ Terraform module for [Application Insights](https://registry.terraform.io/provid
 
 ```hcl
 module "application_insights" {
-  source = "git@github.com:hmcts/terraform-module-application-insights?ref=master"
+  source = "git@github.com:hmcts/terraform-module-application-insights?ref=main"
 
   product = var.product
   env     = var.env
