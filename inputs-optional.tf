@@ -26,6 +26,6 @@ variable "sampling_percentage" {
 }
 
 variable "daily_data_cap_in_gb" {
-  default     = 100
+  default     = 50
   description = "Specifies the Application Insights component daily data volume cap in GB"
 }
