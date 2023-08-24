@@ -12,6 +12,9 @@ module "this" {
 
   resource_group_name = azurerm_resource_group.this.name
 
+  daily_data_cap_in_gb = "0.07"
+  action_group_id      = azurerm_monitor_action_group.example.id
+
   common_tags = module.tags.common_tags
 }
 
@@ -20,4 +23,9 @@ module "tags" {
   environment = var.env
   product     = "cft-platform"
   builtFrom   = var.builtFrom
+}
+
+output "connection_string" {
+  value     = module.this.connection_string
+  sensitive = true
 }
