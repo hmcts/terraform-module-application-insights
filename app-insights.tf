@@ -3,7 +3,7 @@ locals {
 }
 
 module "log_analytics_workspace_id" {
-  source = "git@github.com:hmcts/terraform-module-log-analytics-workspace-id?ref=master"
+  source = "git::https://github.com/hmcts/terraform-module-log-analytics-workspace-id?ref=master"
 
   environment = var.env
 }
