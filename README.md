@@ -36,7 +36,7 @@ module "application_insights" {
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_log_analytics_workspace_id"></a> [log\_analytics\_workspace\_id](#module\_log\_analytics\_workspace\_id) | git@github.com:hmcts/terraform-module-log-analytics-workspace-id | master |
+| <a name="module_log_analytics_workspace_id"></a> [log\_analytics\_workspace\_id](#module\_log\_analytics\_workspace\_id) | git::https://github.com/hmcts/terraform-module-log-analytics-workspace-id | master |
 
 ## Resources
 
