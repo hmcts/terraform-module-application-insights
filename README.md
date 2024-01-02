@@ -63,10 +63,10 @@ module "application_insights" {
 | Name | Description |
 |------|-------------|
 | <a name="output_app_id"></a> [app\_id](#output\_app\_id) | n/a |
-| <a name="output_appinsight_location"></a> [appinsight\_location](#output\_appinsight\_location) | n/a |
 | <a name="output_connection_string"></a> [connection\_string](#output\_connection\_string) | n/a |
 | <a name="output_instrumentation_key"></a> [instrumentation\_key](#output\_instrumentation\_key) | n/a |
 | <a name="output_name"></a> [name](#output\_name) | n/a |
+| <a name="output_resource_id"></a> [resource\_id](#output\_resource\_id) | n/a |
 <!-- END_TF_DOCS -->
 
 ## Contributing
