@@ -33,3 +33,11 @@ output "connection_string" {
 output "app_id" {
   value = azurerm_application_insights.this.app_id
 }
+
+output "appinsight_name" {
+  value = azurerm_application_insights.this.name
+}
+
+output "appinsight_location" {
+  value = azurerm_application_insights.this.location
+}
