@@ -38,6 +38,6 @@ output "name" {
   value = azurerm_application_insights.this.name
 }
 
-output "appinsight_location" {
-  value = azurerm_application_insights.this.location
+output "resource_id" {
+  value = azurerm_application_insights.this.id
 }
