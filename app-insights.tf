@@ -34,7 +34,7 @@ output "app_id" {
   value = azurerm_application_insights.this.app_id
 }
 
-output "appinsight_name" {
+output "name" {
   value = azurerm_application_insights.this.name
 }
 
