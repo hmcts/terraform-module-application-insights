@@ -1,5 +1,5 @@
 locals {
-  name = var.name == null ? "${var.product}-${var.env}" : "${var.name}-${var.env}"
+  name = var.override_name == null ?  (var.name == null ? "${var.product}-${var.env}" : "${var.name}-${var.env}") : var.override_name
 }
 
 module "log_analytics_workspace_id" {
