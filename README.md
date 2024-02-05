@@ -51,7 +51,6 @@ module "application_insights" {
 |------|-------------|------|---------|:--------:|
 | <a name="input_"></a> [](#input\_) | n/a | `list(string)` | `"An action group ID for sending alerts to"` | no |
 | <a name="input_action_group_id"></a> [action\_group\_id](#input\_action\_group\_id) | n/a | `string` | `"An action group ID for sending alerts to"` | no |
-| <a name="input_additional_action_group_ids"></a> [additional\_action\_group\_ids](#input\_additional\_action\_group\_ids) | n/a | <pre>list(object({<br>      action_group_name      = string<br>      short_name             = string<br>      email_receiver_name    = string<br>      email_receiver_address = string<br>      resourcegroup_name     = string<br>  }))</pre> | `[]` | no |
 | <a name="input_application_type"></a> [application\_type](#input\_application\_type) | Specifies the type of Application Insights to create. Valid values are `java` for Java web, `Node.JS` for Node.js, `other` for General, and `web` for ASP.NET | `string` | `"web"` | no |
 | <a name="input_common_tags"></a> [common\_tags](#input\_common\_tags) | Common tags to be applied to resources | `map(string)` | n/a | yes |
 | <a name="input_daily_data_cap_in_gb"></a> [daily\_data\_cap\_in\_gb](#input\_daily\_data\_cap\_in\_gb) | Specifies the Application Insights component daily data volume cap in GB | `number` | `50` | no |
