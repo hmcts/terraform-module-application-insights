@@ -32,13 +32,3 @@ variable "daily_data_cap_in_gb" {
   description = "Specifies the Application Insights component daily data volume cap in GB"
   type        = number
 }
-
-variable "action_group_id" {
-  default = "An action group ID for sending alerts to"
-  type    = list(string)
-}
-
-variable "" {
-  default = "An action group ID for sending alerts to"
-  type    = list(string)
-}
