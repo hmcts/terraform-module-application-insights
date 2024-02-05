@@ -43,13 +43,13 @@ variable "" {
   type    = list(string)
 }
 
-variable "additional_action_group_ids" {
-  type    = list(object({
-      action_group_name      = string
-      short_name             = string
-      email_receiver_name    = string
-      email_receiver_address = string
-      resourcegroup_name     = string
-  }))
-  default = []
-}
+# variable "additional_action_group_ids" {
+#   type    = list(object({
+#       action_group_name      = string
+#       short_name             = string
+#       email_receiver_name    = string
+#       email_receiver_address = string
+#       resourcegroup_name     = string
+#   }))
+#   default = []
+# }
