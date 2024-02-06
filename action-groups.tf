@@ -22,7 +22,7 @@ data "azurerm_function_app_host_keys" "host_keys" {
 
 resource "azurerm_monitor_action_group" "action_group" {
   name                = "${title(var.product)}-${title(var.env)}-Warning-Alerts"
-  resource_group_name = azurerm_resource_group.shared_resource_group.name
+  resource_group_name = var.resource_group_name
   short_name          = "${var.product}-${local.env}"
 
   azure_function_receiver {
