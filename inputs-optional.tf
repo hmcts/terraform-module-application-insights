@@ -33,23 +33,8 @@ variable "daily_data_cap_in_gb" {
   type        = number
 }
 
-variable "action_group_id" {
-  default = "An action group ID for sending alerts to"
-  type    = list(string)
+variable "email_receiver_config" {
+  description = "Configuration for email receiver in the action group"
+  type        = map(string)
+  default     = null
 }
-
-variable "" {
-  default = "An action group ID for sending alerts to"
-  type    = list(string)
-}
-
-# variable "additional_action_group_ids" {
-#   type    = list(object({
-#       action_group_name      = string
-#       short_name             = string
-#       email_receiver_name    = string
-#       email_receiver_address = string
-#       resourcegroup_name     = string
-#   }))
-#   default = []
-# }

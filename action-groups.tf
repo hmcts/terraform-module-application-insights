@@ -1,16 +1,44 @@
-# resource "azurerm_monitor_action_group" "additional_action_groups" {
-#   count = length(var.additional_action_group_ids) > 0 ? 1 : 0
+locals {
+  env = var.env == "sandbox" ? "sbox" : var.env
+  business_area = strcontains(lower(data.azurerm_subscription.current.display_name), "cftapps") ? "cft" : "sds"
+}
 
-#   for_each = { for ag in var.additional_action_group_ids : ag.action_group_name => ag }
+data "azurerm_client_config" "current" {
+}
 
-#   name                = each.value.action_group_name 
-#   resource_group_name = each.value.resourcegroup_name
-#   short_name          = each.value.short_name
+data "azurerm_subscription" "current" {
+  subscription_id = data.azurerm_client_config.current.subscription_id
+}
 
-#   email_receiver {
-#      name             = each.value.email_receiver_name
-#      email_address    = each.value.email_receiver_address
-#     }
+data "azurerm_windows_function_app" "alerts" {
+  name                = "${local.business_area}-alerts-slack-${local.env}"
+  resource_group_name = "${local.business_area}-alerts-slack-${local.env}"
+}
 
-#   tags = var.common_tags
-# }
+data "azurerm_function_app_host_keys" "host_keys" {
+  name                = data.azurerm_windows_function_app.alerts.name
+  resource_group_name = "${local.business_area}-alerts-slack-${local.env}"
+}
+
+resource "azurerm_monitor_action_group" "action_group" {
+  name                = "${title(var.product)}-${title(var.env)}-Warning-Alerts"
+  resource_group_name = azurerm_resource_group.shared_resource_group.name
+  short_name          = "${var.product}-${local.env}"
+
+  azure_function_receiver {
+    function_app_resource_id = data.azurerm_windows_function_app.alerts.id
+    function_name            = "httpTrigger"
+    http_trigger_url         = "https://${data.azurerm_windows_function_app.alerts.default_hostname}/api/httpTrigger?code=${data.azurerm_function_app_host_keys.host_keys.default_function_key}"
+    name                     = "slack-alerts"
+    use_common_alert_schema  = true
+  }
+  dynamic "email_receiver" {
+    for_each = var.email_receiver_config != null ? [var.email_receiver_config] : []
+    content {
+      name          = email_receiver.value["name"]
+      email_address = email_receiver.value["email_address"]
+    }
+  }
+
+  tags = var.common_tags
+}
