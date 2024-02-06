@@ -31,6 +31,7 @@ module "application_insights" {
 | Name | Version |
 |------|---------|
 | <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | >= 3.7.0 |
+| <a name="provider_external"></a> [external](#provider\_external) | n/a |
 
 ## Modules
 
@@ -44,6 +45,7 @@ module "application_insights" {
 |------|------|
 | [azurerm_application_insights.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/application_insights) | resource |
 | [azurerm_monitor_activity_log_alert.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/monitor_activity_log_alert) | resource |
+| [external_external.bash_script](https://registry.terraform.io/providers/hashicorp/external/latest/docs/data-sources/external) | data source |
 
 ## Inputs
 
@@ -65,6 +67,7 @@ module "application_insights" {
 | Name | Description |
 |------|-------------|
 | <a name="output_app_id"></a> [app\_id](#output\_app\_id) | n/a |
+| <a name="output_channel_id"></a> [channel\_id](#output\_channel\_id) | n/a |
 | <a name="output_connection_string"></a> [connection\_string](#output\_connection\_string) | n/a |
 | <a name="output_instrumentation_key"></a> [instrumentation\_key](#output\_instrumentation\_key) | n/a |
 <!-- END_TF_DOCS -->
