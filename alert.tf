@@ -12,7 +12,7 @@ resource "azurerm_monitor_activity_log_alert" "main" {
   }
 
   action {
-    action_group_id = var.action_group_id
+    action_group_id = azurerm_monitor_action_group.action_group.id
 
     webhook_properties = {
       from = "terraform"
