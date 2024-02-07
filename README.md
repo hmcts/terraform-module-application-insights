@@ -49,7 +49,7 @@ module "application_insights" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_action_group_id"></a> [action\_group\_id](#input\_action\_group\_id) | n/a | `string` | `"An action group ID for sending alerts to"` | no |
+| <a name="email_receiver_config"></a> [email\_receiver\_config](#input\_email\_receiver\_config) | Specifies whether an email configuration should be added to the action group. This variable allows teams to provide configuration details for email notifications within the action group resource.  | `map(string)` | `"null"` | no |
 | <a name="input_application_type"></a> [application\_type](#input\_application\_type) | Specifies the type of Application Insights to create. Valid values are `java` for Java web, `Node.JS` for Node.js, `other` for General, and `web` for ASP.NET | `string` | `"web"` | no |
 | <a name="input_common_tags"></a> [common\_tags](#input\_common\_tags) | Common tags to be applied to resources | `map(string)` | n/a | yes |
 | <a name="input_daily_data_cap_in_gb"></a> [daily\_data\_cap\_in\_gb](#input\_daily\_data\_cap\_in\_gb) | Specifies the Application Insights component daily data volume cap in GB | `number` | `50` | no |
