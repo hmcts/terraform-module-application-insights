@@ -12,3 +12,5 @@ variable "product" {
   description = "https://hmcts.github.io/glossary/#product"
   type        = string
 }
+
+variable "aks_subscription_id" {}
