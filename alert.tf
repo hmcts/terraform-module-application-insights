@@ -15,9 +15,24 @@ resource "azurerm_monitor_activity_log_alert" "main" {
     action_group_id = azurerm_monitor_action_group.action_group.id
 
     webhook_properties = {
-      from = "terraform"
+      from           = "terraform"
+      slackChannelId = data.external.bash_script.result.channel_id
     }
   }
 
   tags = var.common_tags
 }
+
+data "external" "bash_script" {
+  program = ["bash", "${path.module}/fetch-channel-id.sh"]
+  query = {
+    # Pass the product var as an argument
+    product = var.product
+  }
+}
+output "channel_id" {
+  value = data.external.bash_script.result.channel_id
+}
+
+
+

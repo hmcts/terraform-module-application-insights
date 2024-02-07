@@ -31,6 +31,7 @@ module "application_insights" {
 | Name | Version |
 |------|---------|
 | <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | >= 3.7.0 |
+| <a name="provider_external"></a> [external](#provider\_external) | n/a |
 
 ## Modules
 
@@ -49,6 +50,7 @@ module "application_insights" {
 | [azurerm_function_app_host_keys.host_keys](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/function_app_host_keys) | data source |
 | [azurerm_subscription.current](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/subscription) | data source |
 | [azurerm_windows_function_app.alerts](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/windows_function_app) | data source |
+| [external_external.bash_script](https://registry.terraform.io/providers/hashicorp/external/latest/docs/data-sources/external) | data source |
 
 ## Inputs
 
@@ -70,6 +72,7 @@ module "application_insights" {
 | Name | Description |
 |------|-------------|
 | <a name="output_app_id"></a> [app\_id](#output\_app\_id) | n/a |
+| <a name="output_channel_id"></a> [channel\_id](#output\_channel\_id) | n/a |
 | <a name="output_connection_string"></a> [connection\_string](#output\_connection\_string) | n/a |
 | <a name="output_instrumentation_key"></a> [instrumentation\_key](#output\_instrumentation\_key) | n/a |
 <!-- END_TF_DOCS -->
