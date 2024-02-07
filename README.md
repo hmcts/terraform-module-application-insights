@@ -31,6 +31,7 @@ module "application_insights" {
 | Name | Version |
 |------|---------|
 | <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | >= 3.7.0 |
+| <a name="provider_azurerm.private_endpoint"></a> [azurerm.private\_endpoint](#provider\_azurerm.private\_endpoint) | >= 3.7.0 |
 | <a name="provider_external"></a> [external](#provider\_external) | n/a |
 
 ## Modules
