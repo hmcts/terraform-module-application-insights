@@ -1,6 +1,7 @@
 locals {
   env = var.env == "sandbox" ? "sbox" : var.env
-  business_area = strcontains(lower(data.azurerm_subscription.current.display_name), "cftapps") ? "cft" : "sds"
+  business_area = strcontains(lower(data.azurerm_subscription.current.display_name), "cnp") || strcontains(lower(data.azurerm_subscription.current.display_name), "cftapps") ? "cft" : "sds"
+
 }
 
 data "azurerm_client_config" "current" {
