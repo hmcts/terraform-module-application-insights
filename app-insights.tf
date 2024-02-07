@@ -1,3 +1,10 @@
+provider "azurerm" {
+  alias           = "private_endpoint"
+  subscription_id = var.aks_subscription_id
+
+  features {}
+}
+
 locals {
   name = var.name == null ? "${var.product}-${var.env}" : "${var.name}-${var.env}"
 }
