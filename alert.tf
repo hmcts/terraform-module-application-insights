@@ -16,7 +16,7 @@ resource "azurerm_monitor_activity_log_alert" "main" {
 
     webhook_properties = {
       from           = "terraform"
-      slackChannelId = try(yamldecode(data.http.cnp_team_config.body)["${var.product}"]["slack"]["channel_id"], "") == "" ? try(yamldecode(data.http.sds_team_config.body)["${var.product}"]["slack"]["channel_id"], "") : ""
+      slackChannelId = try(yamldecode(data.http.cnp_team_config.response_body)["${var.product}"]["slack"]["channel_id"], "") == "" ? try(yamldecode(data.http.sds_team_config.response_body)["${var.product}"]["slack"]["channel_id"], "") : ""
     }
   }
 
@@ -31,5 +31,5 @@ data "http" "sds_team_config" {
 }
 
 output "channel_id" {
-  value = try(yamldecode(data.http.cnp_team_config.body)["${var.product}"]["slack"]["channel_id"], "") == "" ? try(yamldecode(data.http.sds_team_config.body)["${var.product}"]["slack"]["channel_id"], "") : ""
+  value = try(yamldecode(data.http.cnp_team_config.response_body)["${var.product}"]["slack"]["channel_id"], "") == "" ? try(yamldecode(data.http.sds_team_config.response_body)["${var.product}"]["slack"]["channel_id"], "") : ""
 }
