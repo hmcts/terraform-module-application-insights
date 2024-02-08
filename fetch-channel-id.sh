@@ -24,4 +24,4 @@ if [ "$channel_id" = "null" ]; then
   # echo $channel_id
 fi
 
-echo -n "{\"channel_id\":\"$channel_id\"}"
+echo -n "{\"channel_id\":\"$PRODUCT\"}"
