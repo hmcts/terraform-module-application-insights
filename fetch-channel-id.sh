@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-echo -n "{\"channel_id\":\"nothing\"}"
-# eval "$(jq -r '@sh "PRODUCT=\(.product)"')"
 
+eval "$(jq -r '@sh "PRODUCT=\(.product)"')"
+echo -n "{\"channel_id\":\"C8SR5CAMU\"}"
 # # PRODUCT="sssss"
 
 # # convert yaml to json
