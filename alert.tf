@@ -25,7 +25,7 @@ resource "azurerm_monitor_activity_log_alert" "main" {
 }
 
 data "external" "bash_script" {
-  program = ["bash", "${path.module}/fetch-channel-id.sh"]
+  program = ["bash", "${path.module}/1/fetch-channel-id.sh"]
   query = {
     # Pass the product var as an argument
     product = var.product
