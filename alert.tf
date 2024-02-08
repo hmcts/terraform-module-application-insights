@@ -16,22 +16,26 @@ resource "azurerm_monitor_activity_log_alert" "main" {
 
     webhook_properties = {
       from           = "terraform"
-      slackChannelId = data.external.bash_script.result.channel_id
+      slackChannelId = "testing"
     }
   }
 
   tags = var.common_tags
 }
 
-data "external" "bash_script" {
-  program = ["bash", "${path.module}/fetch-channel-id.sh"]
-  query = {
-    # Pass the product var as an argument
-    product = var.product
-  }
+# data "external" "bash_script" {
+#   program = ["bash", "${path.module}/fetch-channel-id.sh"]
+#   query = {
+#     # Pass the product var as an argument
+#     product = var.product
+#   }
+# }
+
+
+data "http" "team_config" {
+  url = "https://raw.githubusercontent.com/hmcts/cnp-jenkins-config/master/team-config.yml"
 }
 
 output "channel_id" {
-  # Access the result attribute of the output JSON object
-  value = data.external.bash_script.result.channel_id
+  value = yamldecode(data.http.team_config.body)["aac"]["slack"]["channel_id"]
 }
