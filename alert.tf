@@ -17,7 +17,6 @@ resource "azurerm_monitor_activity_log_alert" "main" {
     webhook_properties = {
       from           = "terraform"
       slackChannelId = data.external.bash_script.result.channel_id
-      justtest       = "test"
     }
   }
 
