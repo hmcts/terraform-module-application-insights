@@ -23,19 +23,13 @@ resource "azurerm_monitor_activity_log_alert" "main" {
   tags = var.common_tags
 }
 
-# data "external" "bash_script" {
-#   program = ["bash", "${path.module}/fetch-channel-id.sh"]
-#   query = {
-#     # Pass the product var as an argument
-#     product = var.product
-#   }
-# }
-
-
-data "http" "team_config" {
+data "http" "cnp_team_config" {
   url = "https://raw.githubusercontent.com/hmcts/cnp-jenkins-config/master/team-config.yml"
+}
+data "http" "sds_team_config" {
+  url = "https://raw.githubusercontent.com/hmcts/sds-jenkins-config/master/team-config.yml l"
 }
 
 output "channel_id" {
-  value = yamldecode(data.http.team_config.body)["aac"]["slack"]["channel_id"]
+  value = yamldecode(data.http.team_config.body)["${var.product}"]["slack"]["channel_id"]
 }
