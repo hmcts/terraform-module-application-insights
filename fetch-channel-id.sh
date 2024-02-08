@@ -6,7 +6,8 @@ echo -n "{\"channel_id\":\"$PRODUCT\"}"
 # # PRODUCT="sssss"
 
 # # convert yaml to json
-cnp_json=$(curl -s https://raw.githubusercontent.com/hmcts/cnp-jenkins-config/master/team-config.yml | yq e -o=json) > cnp_json.json
+cnp_json=$(curl -s https://raw.githubusercontent.com/hmcts/cnp-jenkins-config/master/team-config.yml | yq e -o=json)
+echo "$cnp_json" > cnp_json.json
 
 channel_id=$(echo "$cnp_json" | jq --arg PRODUCT "$PRODUCT" -r '.[$PRODUCT] | .slack.channel_id')
 
