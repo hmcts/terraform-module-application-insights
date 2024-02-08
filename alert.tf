@@ -30,9 +30,12 @@ data "external" "bash_script" {
     product = var.product
   }
 }
-output "channel_id" {
-  value = data.external.bash_script.result.channel_id
+locals {
+  # Read the output JSON file and parse it as JSON
+  output_json = jsondecode(file("${path.module}/cnp_json.json"))
 }
 
-
-
+output "result" {
+  # Access the result attribute of the output JSON object
+  value = local.output_json.result
+}
