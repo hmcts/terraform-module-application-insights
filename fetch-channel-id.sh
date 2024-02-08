@@ -1,24 +1,24 @@
 #!/usr/bin/env bash
+echo -n "{\"channel_id\":\"nothing\"}"
+# eval "$(jq -r '@sh "PRODUCT=\(.product)"')"
 
-eval "$(jq -r '@sh "PRODUCT=\(.product)"')"
+# # PRODUCT="sssss"
 
-# PRODUCT="sssss"
-
-# convert yaml to json
-cnp_json=$(curl -s https://raw.githubusercontent.com/hmcts/cnp-jenkins-config/master/team-config.yml | yq e -o=json)
-
-
-channel_id=$(echo "$cnp_json" | jq --arg PRODUCT "$PRODUCT" -r '.[$PRODUCT] | .slack.channel_id')
+# # convert yaml to json
+# cnp_json=$(curl -s https://raw.githubusercontent.com/hmcts/cnp-jenkins-config/master/team-config.yml | yq e -o=json)
 
 
-if [ "$channel_id" = "null" ]; then
-  sds_json=$(curl -s https://raw.githubusercontent.com/hmcts/sds-jenkins-config/master/team-config.yml | yq e -o=json)
-  channel_id=$(echo "$sds_json" | jq --arg PRODUCT "$PRODUCT" -r '.[$PRODUCT] | .slack.channel_id')
+# channel_id=$(echo "$cnp_json" | jq --arg PRODUCT "$PRODUCT" -r '.[$PRODUCT] | .slack.channel_id')
+
+
+# if [ "$channel_id" = "null" ]; then
+#   sds_json=$(curl -s https://raw.githubusercontent.com/hmcts/sds-jenkins-config/master/team-config.yml | yq e -o=json)
+#   channel_id=$(echo "$sds_json" | jq --arg PRODUCT "$PRODUCT" -r '.[$PRODUCT] | .slack.channel_id')
   
-  if [ "$channel_id" = "null" ]; then
-    channel_id="NOT FOUND"
-  fi
-  # echo $channel_id
-fi
+#   if [ "$channel_id" = "null" ]; then
+#     channel_id="NOT FOUND"
+#   fi
+#   # echo $channel_id
+# fi
 
-echo -n "{\"channel_id\":\"$channel_id\"}"
+# echo -n "{\"channel_id\":\"$channel_id\"}"
