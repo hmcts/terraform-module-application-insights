@@ -27,9 +27,9 @@ data "http" "cnp_team_config" {
   url = "https://raw.githubusercontent.com/hmcts/cnp-jenkins-config/master/team-config.yml"
 }
 data "http" "sds_team_config" {
-  url = "https://raw.githubusercontent.com/hmcts/sds-jenkins-config/master/team-config.yml l"
+  url = "https://raw.githubusercontent.com/hmcts/sds-jenkins-config/master/team-config.yml"
 }
 
 output "channel_id" {
-  value = yamldecode(data.http.cnp_team_config.body)["${var.product}"]["slack"]["channel_id"]
+  value = try(yamldecode(data.http.cnp_team_config.body)["${var.product}"]["slack"]["channel_id"], "")
 }
