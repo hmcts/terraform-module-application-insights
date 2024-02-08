@@ -8,7 +8,10 @@ $PRODUCT="aac"
 
 
 # # convert yaml to json
+set -x
 cnp_json=$(curl -s https://raw.githubusercontent.com/hmcts/cnp-jenkins-config/master/team-config.yml | yq e -o=json)
+set +x
+
 
 
 channel_id=$(echo "$cnp_json" | jq --arg PRODUCT "$PRODUCT" -r '.[$PRODUCT] | .slack.channel_id')
