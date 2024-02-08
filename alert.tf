@@ -31,5 +31,5 @@ data "http" "sds_team_config" {
 }
 
 output "channel_id" {
-  value = yamldecode(data.http.team_config.body)["${var.product}"]["slack"]["channel_id"]
+  value = yamldecode(data.http.cnp_team_config.body)["${var.product}"]["slack"]["channel_id"]
 }
