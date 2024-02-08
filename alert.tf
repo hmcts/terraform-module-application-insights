@@ -31,5 +31,5 @@ data "http" "sds_team_config" {
 }
 
 output "channel_id" {
-  value = try(yamldecode(data.http.cnp_team_config.body)["${var.product}"]["slack"]["channel_id"], "")
+  value = try(yamldecode(data.http.cnp_team_config.body)["${var.product}"]["slack"]["channel_id"], "") == "" ? try(yamldecode(data.http.sds_team_config.body)["${var.product}"]["slack"]["channel_id"], "") : ""
 }
