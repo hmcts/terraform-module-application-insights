@@ -1,5 +1,15 @@
 #!/usr/bin/env bash
 
+if ! command -v yq &> /dev/null; then
+    apt update
+    apt install yq -y
+fi
+
+if ! command -v jq &> /dev/null; then
+    apt update
+    apt install jq -y
+fi
+
 
 eval "$(jq -r '@sh "PRODUCT=\(.product)"')"
 
