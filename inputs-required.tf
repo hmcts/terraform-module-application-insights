@@ -13,4 +13,3 @@ variable "product" {
   type        = string
 }
 
-variable "aks_subscription_id" {}

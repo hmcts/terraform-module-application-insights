@@ -1,7 +1,6 @@
 locals {
-  env = var.env == "sandbox" ? "sbox" : var.env
+  env           = var.env == "sandbox" ? "sbox" : var.env
   business_area = strcontains(lower(data.azurerm_subscription.current.display_name), "cnp") || strcontains(lower(data.azurerm_subscription.current.display_name), "cftapps") ? "cft" : "sds"
-
 }
 
 data "azurerm_client_config" "current" {
@@ -9,6 +8,10 @@ data "azurerm_client_config" "current" {
 
 data "azurerm_subscription" "current" {
   subscription_id = data.azurerm_client_config.current.subscription_id
+}
+
+data "azurerm_subscriptions" "available" {
+  display_name_prefix = local.business_area == "cft" ? "DCD-CFTAPPS-${local.env}" : local.business_area == "sds" ? "DTS-SHAREDSERVICES-${local.env}" : ""
 }
 
 data "azurerm_windows_function_app" "alerts" {
@@ -26,7 +29,7 @@ data "azurerm_function_app_host_keys" "host_keys" {
 resource "azurerm_monitor_action_group" "action_group" {
   name                = "${title(var.product)}-${title(var.env)}-Warning-Alerts"
   resource_group_name = var.resource_group_name
-  short_name = "${substr(var.product, 0, 3)}-${local.env}"
+  short_name          = "${substr(var.product, 0, 3)}-${local.env}"
 
   azure_function_receiver {
     function_app_resource_id = data.azurerm_windows_function_app.alerts.id
