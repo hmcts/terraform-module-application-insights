@@ -79,6 +79,10 @@ module "application_insights" {
 | <a name="output_instrumentation_key"></a> [instrumentation\_key](#output\_instrumentation\_key) | n/a |
 <!-- END_TF_DOCS -->
 
+## Action Groups
+
+Within this module, an alert system is configured to notify teams via Slack when the daily cap of Application Insights is reached. Additionally, teams have the option to receive email notifications by configuring the email_receiver_config (map/string) within the module.
+
 ## Contributing
 
 We use pre-commit hooks for validating the terraform format and maintaining the documentation automatically.
