@@ -1,9 +1,9 @@
 locals {
-  name = var.name == null ? "${var.product}-${var.env}" : "${var.name}-${var.env}"
+  name = var.override_name == null ?  (var.name == null ? "${var.product}-${var.env}" : "${var.name}-${var.env}") : var.override_name
 }
 
 module "log_analytics_workspace_id" {
-  source = "git@github.com:hmcts/terraform-module-log-analytics-workspace-id?ref=master"
+  source = "git::https://github.com/hmcts/terraform-module-log-analytics-workspace-id?ref=master"
 
   environment = var.env
 }
@@ -35,3 +35,12 @@ output "connection_string" {
 output "app_id" {
   value = azurerm_application_insights.this.app_id
 }
+
+output "name" {
+  value = azurerm_application_insights.this.name
+}
+
+output "id" {
+  value = azurerm_application_insights.this.id
+}
+

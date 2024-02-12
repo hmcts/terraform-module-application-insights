@@ -15,6 +15,12 @@ variable "name" {
   type        = string
 }
 
+variable "override_name" {
+  description = "The default name will be product+env, this override enables a fully custom name" #the primary use case for this is to enable exisiting App Insights to be moved to the module, without redeployment.
+  default     = null
+  type        = string
+}
+
 variable "application_type" {
   default     = "web" # most of our instances have historically used web, even if other might be more appropriate
   description = "Specifies the type of Application Insights to create. Valid values are `java` for Java web, `Node.JS` for Node.js, `other` for General, and `web` for ASP.NET"

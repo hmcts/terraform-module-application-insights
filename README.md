@@ -38,7 +38,7 @@ module "application_insights" {
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_log_analytics_workspace_id"></a> [log\_analytics\_workspace\_id](#module\_log\_analytics\_workspace\_id) | git@github.com:hmcts/terraform-module-log-analytics-workspace-id | master |
+| <a name="module_log_analytics_workspace_id"></a> [log\_analytics\_workspace\_id](#module\_log\_analytics\_workspace\_id) | git::https://github.com/hmcts/terraform-module-log-analytics-workspace-id | master |
 
 ## Resources
 
@@ -65,6 +65,7 @@ module "application_insights" {
 | <a name="input_env"></a> [env](#input\_env) | Environment value | `string` | n/a | yes |
 | <a name="input_location"></a> [location](#input\_location) | Target Azure location to deploy the resource | `string` | `"UK South"` | no |
 | <a name="input_name"></a> [name](#input\_name) | The default name will be product+env, you can override the product part by setting this | `string` | `null` | no |
+| <a name="input_override_name"></a> [override\_name](#input\_override\_name) | The default name will be product+env, this override enables a fully custom name | `string` | `null` | no |
 | <a name="input_product"></a> [product](#input\_product) | https://hmcts.github.io/glossary/#product | `string` | n/a | yes |
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | Name of existing resource group to deploy resources into | `string` | n/a | yes |
 | <a name="input_sampling_percentage"></a> [sampling\_percentage](#input\_sampling\_percentage) | Specifies the percentage of the data produced by the monitored application that is sampled for Application Insights telemetry. | `number` | `100` | no |
@@ -76,7 +77,9 @@ module "application_insights" {
 | <a name="output_app_id"></a> [app\_id](#output\_app\_id) | n/a |
 | <a name="output_channel_id"></a> [channel\_id](#output\_channel\_id) | n/a |
 | <a name="output_connection_string"></a> [connection\_string](#output\_connection\_string) | n/a |
+| <a name="output_id"></a> [id](#output\_id) | n/a |
 | <a name="output_instrumentation_key"></a> [instrumentation\_key](#output\_instrumentation\_key) | n/a |
+| <a name="output_name"></a> [name](#output\_name) | n/a |
 <!-- END_TF_DOCS -->
 
 ## Action Groups
