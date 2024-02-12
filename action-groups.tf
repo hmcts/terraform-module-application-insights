@@ -1,5 +1,6 @@
 locals {
   env           = (var.env == "aat") ? "stg" : (var.env == "sandbox") ? "sbox" : "${(var.env == "perftest") ? "test" : "${var.env}"}"
+  rg_env        = var.env == "sandbox" ? "sbox" : var.env
   business_area = strcontains(lower(data.azurerm_subscription.current.display_name), "cnp") || strcontains(lower(data.azurerm_subscription.current.display_name), "cftapps") ? "cft" : "sds"
 }
 
@@ -16,20 +17,20 @@ data "azurerm_subscriptions" "available" {
 
 data "azurerm_windows_function_app" "alerts" {
   provider            = azurerm.private_endpoint
-  name                = "${local.business_area}-alerts-slack-${local.env}"
-  resource_group_name = "${local.business_area}-alerts-slack-${local.env}"
+  name                = "${local.business_area}-alerts-slack-${local.rg_env}"
+  resource_group_name = "${local.business_area}-alerts-slack-${local.rg_env}"
 }
 
 data "azurerm_function_app_host_keys" "host_keys" {
   provider            = azurerm.private_endpoint
   name                = data.azurerm_windows_function_app.alerts.name
-  resource_group_name = "${local.business_area}-alerts-slack-${local.env}"
+  resource_group_name = "${local.business_area}-alerts-slack-${local.rg_env}"
 }
 
 resource "azurerm_monitor_action_group" "action_group" {
-  name                = "${title(var.product)}-${title(var.env)}-Warning-Alerts"
+  name                = "${title(var.product)}-${title(local.rg_env)}-Warning-Alerts"
   resource_group_name = var.resource_group_name
-  short_name          = "${substr(var.product, 0, 3)}-${local.env}"
+  short_name          = "${substr(var.product, 0, 3)}-${local.rg_env}"
 
   azure_function_receiver {
     function_app_resource_id = data.azurerm_windows_function_app.alerts.id
