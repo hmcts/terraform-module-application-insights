@@ -1,9 +1,6 @@
 locals {
   env           = var.env == "sandbox" ? "sbox" : var.env
   business_area = strcontains(lower(data.azurerm_subscription.current.display_name), "cnp") || strcontains(lower(data.azurerm_subscription.current.display_name), "cftapps") ? "cft" : "sds"
-
-  # aks_subscription_id = local.business_area == "cft" && local.env == "sbox" ? "b72ab7b7-723f-4b18-b6f6-03b0f2c6a1bb" : local.business_area == "cft" && local.env == "aat" ? "96c274ce-846d-4e48-89a7-d528432298a7" : local.business_area == "cft" && local.env == "demo" ? "d025fece-ce99-4df2-b7a9-b649d3ff2060" : local.business_area == "cft" && local.env == "ithc" ? "62864d44-5da9-4ae9-89e7-0cf33942fa09" : local.business_area == "cft" && local.env == "perftest" ? "8a07fdcd-6abd-48b3-ad88-ff737a4b9e3c" : local.business_area == "cft" && local.env == "prod" ? "8cbc6f36-7c56-4963-9d36-739db5d00b27" : local.business_area == "sds" && local.env == "demo" ? "c68a4bed-4c3d-4956-af51-4ae164c1957c" : local.business_area == "sds" && local.env == "ithc" ? "ba71a911-e0d6-4776-a1a6-079af1df7139" : local.business_area == "sds" && local.env == "prod" ? "5ca62022-6aa2-4cee-aaa7-e7536c8d566c" : local.business_area == "sds" && local.env == "sbox" ? "a8140a9e-f1b0-481f-a4de-09e2ee23f7ab" : local.business_area == "sds" && local.env == "stg" ? "74dacd4f-a248-45bb-a2f0-af700dc4cf68" : local.business_area == "sds" && local.env == "test" ? "3eec5bde-7feb-4566-bfb6-805df6e10b90" : ""
-
 }
 
 data "azurerm_client_config" "current" {
