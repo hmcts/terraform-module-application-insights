@@ -61,6 +61,7 @@ module "application_insights" {
 | <a name="input_common_tags"></a> [common\_tags](#input\_common\_tags) | Common tags to be applied to resources | `map(string)` | n/a | yes |
 | <a name="input_daily_data_cap_in_gb"></a> [daily\_data\_cap\_in\_gb](#input\_daily\_data\_cap\_in\_gb) | Specifies the Application Insights component daily data volume cap in GB | `number` | `50` | no |
 | <a name="input_email_receiver_config"></a> [email\_receiver\_config](#input\_email\_receiver\_config) | Configuration for email receiver in the action group | `map(string)` | `null` | no |
+| <a name="input_aks_subscription_id"></a> [aks\_subscription\_id](#input\aks\_subscription\_id) | Subscription used for provider alias private_endpoint | `string` | `n/a` | yes |
 | <a name="input_env"></a> [env](#input\_env) | Environment value | `string` | n/a | yes |
 | <a name="input_location"></a> [location](#input\_location) | Target Azure location to deploy the resource | `string` | `"UK South"` | no |
 | <a name="input_name"></a> [name](#input\_name) | The default name will be product+env, you can override the product part by setting this | `string` | `null` | no |
