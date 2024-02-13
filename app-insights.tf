@@ -19,6 +19,8 @@ resource "azurerm_application_insights" "this" {
   sampling_percentage  = var.sampling_percentage
   workspace_id         = module.log_analytics_workspace_id.workspace_id
 
+  daily_data_cap_notifications_disabled = true
+
   tags = var.common_tags
 }
 
@@ -41,3 +43,4 @@ output "name" {
 output "id" {
   value = azurerm_application_insights.this.id
 }
+

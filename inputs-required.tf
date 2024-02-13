@@ -12,3 +12,4 @@ variable "product" {
   description = "https://hmcts.github.io/glossary/#product"
   type        = string
 }
+

@@ -24,14 +24,23 @@ variable "override_name" {
 variable "application_type" {
   default     = "web" # most of our instances have historically used web, even if other might be more appropriate
   description = "Specifies the type of Application Insights to create. Valid values are `java` for Java web, `Node.JS` for Node.js, `other` for General, and `web` for ASP.NET"
+  type        = string
 }
 
 variable "sampling_percentage" {
   default     = 100
   description = "Specifies the percentage of the data produced by the monitored application that is sampled for Application Insights telemetry."
+  type        = number
 }
 
 variable "daily_data_cap_in_gb" {
   default     = 50
   description = "Specifies the Application Insights component daily data volume cap in GB"
+  type        = number
+}
+
+variable "email_receiver_config" {
+  description = "Configuration for email receiver in the action group"
+  type        = map(string)
+  default     = null
 }
