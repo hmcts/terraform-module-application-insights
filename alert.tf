@@ -26,7 +26,7 @@ resource "azurerm_monitor_activity_log_alert" "main" {
 data "azurerm_monitor_action_group" "this" {
   provider            = azurerm.ptl_subscription
   resource_group_name = "${local.business_area}-alerts-slack-ptl"
-  name                = "${local.business_area}-alerts-slack-ptl"
+  name                = "${local.business_area}-alerts-slack-warning-alerts"
 }
 
 data "http" "cnp_team_config" {
