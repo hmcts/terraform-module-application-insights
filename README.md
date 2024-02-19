@@ -31,7 +31,7 @@ module "application_insights" {
 | Name | Version |
 |------|---------|
 | <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | >= 3.7.0 |
-| <a name="provider_azurerm.private_endpoint"></a> [azurerm.private\_endpoint](#provider\_azurerm.private\_endpoint) | >= 3.7.0 |
+| <a name="provider_azurerm.ptl_subscription"></a> [azurerm.ptl\_subscription](#provider\_azurerm.ptl\_subscription) | >= 3.7.0 |
 | <a name="provider_http"></a> [http](#provider\_http) | n/a |
 
 ## Modules
@@ -45,13 +45,10 @@ module "application_insights" {
 | Name | Type |
 |------|------|
 | [azurerm_application_insights.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/application_insights) | resource |
-| [azurerm_monitor_action_group.action_group](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/monitor_action_group) | resource |
 | [azurerm_monitor_activity_log_alert.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/monitor_activity_log_alert) | resource |
 | [azurerm_client_config.current](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/client_config) | data source |
-| [azurerm_function_app_host_keys.host_keys](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/function_app_host_keys) | data source |
+| [azurerm_monitor_action_group.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/monitor_action_group) | data source |
 | [azurerm_subscription.current](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/subscription) | data source |
-| [azurerm_subscriptions.available](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/subscriptions) | data source |
-| [azurerm_windows_function_app.alerts](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/windows_function_app) | data source |
 | [http_http.cnp_team_config](https://registry.terraform.io/providers/hashicorp/http/latest/docs/data-sources/http) | data source |
 | [http_http.sds_team_config](https://registry.terraform.io/providers/hashicorp/http/latest/docs/data-sources/http) | data source |
 

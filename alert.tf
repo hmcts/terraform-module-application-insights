@@ -12,7 +12,7 @@ resource "azurerm_monitor_activity_log_alert" "main" {
   }
 
   action {
-    action_group_id = azurerm_monitor_action_group.action_group.id
+    action_group_id = data.azurerm_monitor_action_group.this.id
 
     webhook_properties = {
       from           = "terraform"
@@ -21,6 +21,12 @@ resource "azurerm_monitor_activity_log_alert" "main" {
   }
 
   tags = var.common_tags
+}
+
+data "azurerm_monitor_action_group" "this" {
+  provider            = azurerm.ptl_subscription
+  resource_group_name = "${local.business_area}-alerts-slack-ptl"
+  name                = "${local.business_area}-alerts-slack-warning-alerts"
 }
 
 data "http" "cnp_team_config" {
