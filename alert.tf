@@ -13,7 +13,7 @@ data "azurerm_subscription" "current" {
 }
 
 resource "azurerm_monitor_activity_log_alert" "main" {
-  name                = "Application Insights daily cap reached"
+  name                = var.env == "preview" ? "Application Insights daily cap reached - preview" : "Application Insights daily cap reached"
   resource_group_name = var.resource_group_name
   scopes              = [azurerm_application_insights.this.id]
   description         = "Monitors for application insight reaching it's daily cap."
@@ -26,7 +26,7 @@ resource "azurerm_monitor_activity_log_alert" "main" {
   }
 
   action {
-    action_group_id = data.azurerm_monitor_action_group.this.id
+    action_group_id = local.business_area == "sds" ? "/subscriptions/6c4d2513-a873-41b4-afdd-b05a33206631/resourceGroups/sds-alerts-slack-ptl/providers/Microsoft.Insights/actiongroups/sds-alerts-slack-warning-alerts" : "/subscriptions/1baf5470-1c3e-40d3-a6f7-74bfbce4b348/resourceGroups/cft-alerts-slack-ptl/providers/Microsoft.Insights/actionGroups/cft-alerts-slack-warning-alerts"
 
     webhook_properties = {
       from           = "terraform"
@@ -37,11 +37,6 @@ resource "azurerm_monitor_activity_log_alert" "main" {
   tags = var.common_tags
 }
 
-data "azurerm_monitor_action_group" "this" {
-  provider            = azurerm.ptl_subscription
-  resource_group_name = "${local.business_area}-alerts-slack-ptl"
-  name                = "${local.business_area}-alerts-slack-warning-alerts"
-}
 
 data "http" "cnp_team_config" {
   url = "https://raw.githubusercontent.com/hmcts/cnp-jenkins-config/master/team-config.yml"
