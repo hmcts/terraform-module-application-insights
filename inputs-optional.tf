@@ -1,6 +1,7 @@
 variable "resource_group_name" {
   description = "Name of existing resource group to deploy resources into"
   type        = string
+  default     = null
 }
 
 variable "location" {

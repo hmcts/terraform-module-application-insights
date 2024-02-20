@@ -1,3 +1,17 @@
+
+locals {
+  env = (var.env == "aat") ? "stg" : (var.env == "sandbox") ? "sbox" : "${(var.env == "perftest") ? "test" : "${var.env}"}"
+
+  business_area = strcontains(lower(data.azurerm_subscription.current.display_name), "cnp") || strcontains(lower(data.azurerm_subscription.current.display_name), "cft") ? "cft" : "sds"
+}
+
+data "azurerm_client_config" "current" {
+}
+
+data "azurerm_subscription" "current" {
+  subscription_id = data.azurerm_client_config.current.subscription_id
+}
+
 resource "azurerm_monitor_activity_log_alert" "main" {
   name                = "Application Insights daily cap reached"
   resource_group_name = var.resource_group_name
