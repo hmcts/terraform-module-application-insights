@@ -13,7 +13,7 @@ data "azurerm_subscription" "current" {
 }
 
 resource "azurerm_monitor_activity_log_alert" "main" {
-  name                = var.env == "preview" ? "Application Insights daily cap reached - preview" : "Application Insights daily cap reached"
+  name                = "Application Insights daily cap reached - ${local.name}"
   resource_group_name = var.resource_group_name
   scopes              = [azurerm_application_insights.this.id]
   description         = "Monitors for application insight reaching it's daily cap."
