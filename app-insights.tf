@@ -1,5 +1,5 @@
 locals {
-  name = var.override_name == null ?  (var.name == null ? "${var.product}-${var.env}" : "${var.name}-${var.env}") : var.override_name
+  name = var.override_name == null ? (var.name == null ? "${var.product}-${var.env}" : "${var.name}-${var.env}") : var.override_name
 }
 
 module "log_analytics_workspace_id" {
@@ -9,6 +9,7 @@ module "log_analytics_workspace_id" {
 }
 
 resource "azurerm_application_insights" "this" {
+
   name = local.name
 
   location            = var.location
