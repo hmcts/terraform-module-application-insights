@@ -50,11 +50,11 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "main" {
   description          = "Monitors for application insight reaching it's daily cap."
 
   criteria {
-    query                     = <<-QUERY
+      query                   = <<-QUERY
         AzureActivity 
-        | where ResourceId == "${azurerm_application_insights.this.id}"
-        | where OperationNameValue == "Microsoft.Insights/Components/DailyCapReached/Action"
-      QUERY
+          | where ResourceId == "${azurerm_application_insights.this.id}"
+          | where OperationNameValue == "Microsoft.Insights/Components/DailyCapReached/Action"
+        QUERY
       time_aggregation_method = "Count"
       operator                = "Equal"
       threshold               = 0
