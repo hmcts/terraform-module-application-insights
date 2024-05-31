@@ -44,3 +44,9 @@ variable "email_receiver_config" {
   type        = map(string)
   default     = null
 }
+
+variable "alert_limit_reached" {
+  description = "Specifies whether the limit of 100 Activity Log Alerts has been met in the current subscription. Setting to true will create a Scheduled Query Rules V2 Alert with the same purpose"
+  type       = bool
+  default    = false
+}

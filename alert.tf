@@ -13,6 +13,7 @@ data "azurerm_subscription" "current" {
 }
 
 resource "azurerm_monitor_activity_log_alert" "main" {
+  count               = var.alert_limit_reached ? 0 : 1
   name                = "Application Insights daily cap reached - ${local.name}"
   resource_group_name = var.resource_group_name
   scopes              = [azurerm_application_insights.this.id]
@@ -35,6 +36,38 @@ resource "azurerm_monitor_activity_log_alert" "main" {
   }
 
   tags = var.common_tags
+}
+
+resource "azurerm_monitor_scheduled_query_rules_alert_v2" "main" {
+  count                = var.alert_limit_reached ? 1 : 0
+  name                 = "Application Insights daily cap reached - ${local.name}"
+  resource_group_name  = var.resource_group_name
+  location             = var.location
+  evaluation_frequency = "PT5M"
+  window_duration      = "PT5M"
+  severity             = 3
+  scopes               = [azurerm_application_insights.this.id]
+  description          = "Monitors for application insight reaching it's daily cap."
+
+  criteria {
+    query                     = <<-QUERY
+        AzureActivity 
+        | where ResourceId == "${azurerm_application_insights.this.id}"
+        | where OperationNameValue == "Microsoft.Insights/Components/DailyCapReached/Action"
+      QUERY
+      time_aggregation_method = "Count"
+      operator                = "GreaterThan"
+      threshold               = 0
+  }
+
+    action {
+      action_groups = local.business_area == "sds" ? ["/subscriptions/6c4d2513-a873-41b4-afdd-b05a33206631/resourceGroups/sds-alerts-slack-ptl/providers/Microsoft.Insights/actiongroups/sds-alerts-slack-warning-alerts"] : ["/subscriptions/1baf5470-1c3e-40d3-a6f7-74bfbce4b348/resourceGroups/cft-alerts-slack-ptl/providers/Microsoft.Insights/actionGroups/cft-alerts-slack-warning-alerts"]
+
+      custom_properties = {
+        from           = "terraform"
+        slackChannelId = try(yamldecode(data.http.cnp_team_config.response_body)["${var.product}"]["slack"]["channel_id"], "") == "" ? try(yamldecode(data.http.sds_team_config.response_body)["${var.product}"]["slack"]["channel_id"], "") : try(yamldecode(data.http.cnp_team_config.response_body)["${var.product}"]["slack"]["channel_id"], "")
+      }
+  }
 }
 
 
