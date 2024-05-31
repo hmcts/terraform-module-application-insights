@@ -56,7 +56,7 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "main" {
         | where OperationNameValue == "Microsoft.Insights/Components/DailyCapReached/Action"
       QUERY
       time_aggregation_method = "Count"
-      operator                = "GreaterThan"
+      operator                = "Equal"
       threshold               = 0
   }
 
