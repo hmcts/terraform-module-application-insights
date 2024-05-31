@@ -76,6 +76,8 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "main" {
         slackChannelId = try(yamldecode(data.http.cnp_team_config.response_body)["${var.product}"]["slack"]["channel_id"], "") == "" ? try(yamldecode(data.http.sds_team_config.response_body)["${var.product}"]["slack"]["channel_id"], "") : try(yamldecode(data.http.cnp_team_config.response_body)["${var.product}"]["slack"]["channel_id"], "")
       }
   }
+
+  tags = var.common_tags
 }
 
 
