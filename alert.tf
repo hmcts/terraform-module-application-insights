@@ -62,11 +62,13 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "main" {
         AzureActivity 
           | where ResourceId == "${azurerm_application_insights.this.id}"
           | where OperationNameValue == "Microsoft.Insights/Components/DailyCapReached/Action"
-          | count
+          | summarize count() by TimeGenerated
+          | where count_ > 0
         QUERY
-      time_aggregation_method = "Count"
-      operator                = "Equal"
-      threshold               = 0
+      time_aggregation_method = "Total"
+      metric_measure_column   = "count_"
+      operator                = "LessThan"
+      threshold               = 1
   }
 
     action {
