@@ -65,7 +65,8 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "main" {
           | summarize count() by TimeGenerated
           | where count_ > 0
         QUERY
-      time_aggregation_method = "Count"
+      time_aggregation_method = "Total"
+      metric_measure_column   = "count_"
       operator                = "Equal"
       threshold               = 0
   }
