@@ -53,7 +53,7 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "main" {
   location             = var.location
   evaluation_frequency = "PT15M"
   window_duration      = "PT15M"
-  severity             = 2
+  severity             = 4
   scopes               = [data.azurerm_log_analytics_workspace.workspace.id]
   description          = "Monitors for application insight reaching it's daily cap."
 
@@ -62,13 +62,10 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "main" {
         AzureActivity 
           | where ResourceId == "${azurerm_application_insights.this.id}"
           | where OperationNameValue == "Microsoft.Insights/Components/DailyCapReached/Action"
-          | summarize count() by TimeGenerated
-          | where count_ > 0
         QUERY
-      time_aggregation_method = "Total"
-      metric_measure_column   = "count_"
-      operator                = "LessThan"
-      threshold               = 1
+      time_aggregation_method = "Count"
+      operator                = "GreaterThan"
+      threshold               = 0
   }
 
     action {
