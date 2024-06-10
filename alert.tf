@@ -50,7 +50,7 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "main" {
   count                = var.alert_limit_reached ? 1 : 0
   name                 = "Application Insights daily cap reached - ${local.name}"
   resource_group_name  = var.resource_group_name
-  location             = var.location
+  location             = "Global"
   evaluation_frequency = "PT15M"
   window_duration      = "PT15M"
   severity             = 4
@@ -58,16 +58,14 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "main" {
   description          = "Monitors for application insight reaching it's daily cap."
 
   criteria {
-    query                   = <<-QUERY
-        AzureActivity
-        QUERY
+    query                   = "AzureActivity"
     time_aggregation_method = "Count"
     operator                = "GreaterThan"
     threshold               = 0
   }
 
   action {
-    action_groups = local.business_area == "sds" ? ["/subscriptions/6c4d2513-a873-41b4-afdd-b05a33206631/resourceGroups/sds-alerts-slack-ptl/providers/Microsoft.Insights/actiongroups/sds-alerts-slack-warning-alerts"] : ["/subscriptions/1baf5470-1c3e-40d3-a6f7-74bfbce4b348/resourceGroups/cft-alerts-slack-ptl/providers/Microsoft.Insights/actionGroups/cft-alerts-slack-warning-alerts"]
+    action_groups = local.business_area == "sds" ? ["/subscriptions/6c4d2513-a873-41b4-afdd-b05a33206631/resourceGroups/sds-alerts-slack-ptl/providers/Microsoft.Insights/actiongroups/sds-alerts-slack-warning-alerts"] : ["/subscriptions/1baf5470-1c3e-40d3-a6f7-74bfbce4b348/resourceGroups/cft-alerts-slack-ptl/providers/Microsoft.Insights/actionGroups/cft-alerts-slack-warning-alerts", "/subscriptions/1c4f0704-a29e-403d-b719-b90c34ef14c9/resourceGroups/docmosis-infrastructure-demo/providers/microsoft.insights/actiongroups/cft-test-email-alert"]
 
     custom_properties = {
       from           = "terraform"
