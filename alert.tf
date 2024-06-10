@@ -66,7 +66,7 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "main" {
           | where Category == "Administrative"
         QUERY
     time_aggregation_method = "Count"
-    operator                = "Equals"
+    operator                = "Equal"
     threshold               = 0
   }
 
