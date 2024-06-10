@@ -58,7 +58,7 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "main" {
   description          = "Monitors for application insight reaching it's daily cap."
 
   criteria {
-    query                   = "Heartbeat"
+    query                   = "Heartbeat | where TimeGenerated > ago(5m)"
     time_aggregation_method = "Count"
     operator                = "GreaterThan"
     threshold               = 0
