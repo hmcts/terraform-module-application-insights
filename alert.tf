@@ -50,9 +50,9 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "main" {
   count                = var.alert_limit_reached ? 1 : 0
   name                 = "Application Insights daily cap reached - ${local.name}"
   resource_group_name  = var.resource_group_name
-  location             = "Global"
-  evaluation_frequency = "PT15M"
-  window_duration      = "PT15M"
+  location             = var.location
+  evaluation_frequency = "PT5M"
+  window_duration      = "PT5M"
   severity             = 4
   scopes               = [data.azurerm_log_analytics_workspace.workspace.id]
   description          = "Monitors for application insight reaching it's daily cap."
