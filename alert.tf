@@ -58,25 +58,25 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "main" {
   description          = "Monitors for application insight reaching it's daily cap."
 
   criteria {
-      query                   = <<-QUERY
+    query                   = <<-QUERY
         AzureActivity 
           | where ResourceId == "${azurerm_application_insights.this.id}"
           | where OperationNameValue == "Microsoft.Insights/Components/DailyCapReached/Action"
           | where Level == "Warning"
           | where Category == "Administrative"
         QUERY
-      time_aggregation_method = "Count"
-      operator                = "GreaterThan"
-      threshold               = 0
+    time_aggregation_method = "Count"
+    operator                = "Equals"
+    threshold               = 0
   }
 
-    action {
-      action_groups = local.business_area == "sds" ? ["/subscriptions/6c4d2513-a873-41b4-afdd-b05a33206631/resourceGroups/sds-alerts-slack-ptl/providers/Microsoft.Insights/actiongroups/sds-alerts-slack-warning-alerts"] : ["/subscriptions/1baf5470-1c3e-40d3-a6f7-74bfbce4b348/resourceGroups/cft-alerts-slack-ptl/providers/Microsoft.Insights/actionGroups/cft-alerts-slack-warning-alerts"]
+  action {
+    action_groups = local.business_area == "sds" ? ["/subscriptions/6c4d2513-a873-41b4-afdd-b05a33206631/resourceGroups/sds-alerts-slack-ptl/providers/Microsoft.Insights/actiongroups/sds-alerts-slack-warning-alerts"] : ["/subscriptions/1baf5470-1c3e-40d3-a6f7-74bfbce4b348/resourceGroups/cft-alerts-slack-ptl/providers/Microsoft.Insights/actionGroups/cft-alerts-slack-warning-alerts"]
 
-      custom_properties = {
-        from           = "terraform"
-        slackChannelId = try(yamldecode(data.http.cnp_team_config.response_body)["${var.product}"]["slack"]["channel_id"], "") == "" ? try(yamldecode(data.http.sds_team_config.response_body)["${var.product}"]["slack"]["channel_id"], "") : try(yamldecode(data.http.cnp_team_config.response_body)["${var.product}"]["slack"]["channel_id"], "")
-      }
+    custom_properties = {
+      from           = "terraform"
+      slackChannelId = try(yamldecode(data.http.cnp_team_config.response_body)["${var.product}"]["slack"]["channel_id"], "") == "" ? try(yamldecode(data.http.sds_team_config.response_body)["${var.product}"]["slack"]["channel_id"], "") : try(yamldecode(data.http.cnp_team_config.response_body)["${var.product}"]["slack"]["channel_id"], "")
+    }
   }
 
   tags = var.common_tags
