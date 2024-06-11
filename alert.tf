@@ -51,16 +51,20 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "main" {
   name                 = "Application Insights daily cap reached - ${local.name}"
   resource_group_name  = var.resource_group_name
   location             = var.location
-  evaluation_frequency = "PT5M"
-  window_duration      = "PT5M"
+  evaluation_frequency = "PT15M"
+  window_duration      = "PT15M"
   severity             = 4
   scopes               = [data.azurerm_log_analytics_workspace.workspace.id]
   description          = "Monitors for application insight reaching it's daily cap."
 
   criteria {
     query                   = <<-QUERY
-    Heartbeat
-      | where TimeGenerated > ago(5m)
+      AzureActivity 
+        | where ResourceId == "${azurerm_application_insights.this.id}"
+        | where OperationNameValue == "Microsoft.Insights/Components/DailyCapReached/Action"
+        | where Level == "Warning"
+        | where Category == "Administrative"
+        | where TimeGenerated > ago(15m)
     QUERY
     time_aggregation_method = "Count"
     operator                = "GreaterThan"
@@ -73,7 +77,7 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "main" {
   }
 
   action {
-    action_groups = local.business_area == "sds" ? ["/subscriptions/6c4d2513-a873-41b4-afdd-b05a33206631/resourceGroups/sds-alerts-slack-ptl/providers/Microsoft.Insights/actiongroups/sds-alerts-slack-warning-alerts"] : ["/subscriptions/1baf5470-1c3e-40d3-a6f7-74bfbce4b348/resourceGroups/cft-alerts-slack-ptl/providers/Microsoft.Insights/actionGroups/cft-alerts-slack-warning-alerts", "/subscriptions/1c4f0704-a29e-403d-b719-b90c34ef14c9/resourceGroups/docmosis-infrastructure-demo/providers/microsoft.insights/actiongroups/cft-test-email-alert"]
+    action_groups = local.business_area == "sds" ? ["/subscriptions/6c4d2513-a873-41b4-afdd-b05a33206631/resourceGroups/sds-alerts-slack-ptl/providers/Microsoft.Insights/actiongroups/sds-alerts-slack-warning-alerts"] : ["/subscriptions/1baf5470-1c3e-40d3-a6f7-74bfbce4b348/resourceGroups/cft-alerts-slack-ptl/providers/Microsoft.Insights/actionGroups/cft-alerts-slack-warning-alerts"]
 
     custom_properties = {
       from           = "terraform"
@@ -83,7 +87,6 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "main" {
 
   tags = var.common_tags
 }
-
 
 data "http" "cnp_team_config" {
   url = "https://raw.githubusercontent.com/hmcts/cnp-jenkins-config/master/team-config.yml"

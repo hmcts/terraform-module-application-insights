@@ -47,6 +47,6 @@ variable "email_receiver_config" {
 
 variable "alert_limit_reached" {
   description = "Specifies whether the limit of 100 Activity Log Alerts has been met in the current subscription. Setting to true will create a Log Search Alert instead"
-  type       = bool
-  default    = false
+  type        = bool
+  default     = false
 }
