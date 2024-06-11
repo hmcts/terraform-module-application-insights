@@ -54,12 +54,12 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "main" {
   evaluation_frequency = "PT5M"
   window_duration      = "PT5M"
   severity             = 4
-  scopes               = [azurerm_application_insights.this.id]
+  scopes               = [data.azurerm_log_analytics_workspace.workspace.id]
   description          = "Monitors for application insight reaching it's daily cap."
 
   criteria {
     query                   = <<-QUERY
-    requests
+    Heartbeat
       | where TimeGenerated > ago(5m)
     QUERY
     time_aggregation_method = "Count"
