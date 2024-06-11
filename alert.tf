@@ -85,6 +85,11 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "main" {
     }
   }
 
+  identity {
+    type         = "UserAssigned"
+    identity_ids = [azurerm_user_assigned_identity.this.id]
+  }
+
   tags = var.common_tags
 }
 
