@@ -59,11 +59,7 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "main" {
 
   criteria {
     query                   = <<-QUERY
-    AzureActivity 
-      | where ResourceId == "${azurerm_application_insights.this.id}"
-      | where OperationNameValue == "Microsoft.Insights/Components/DailyCapReached/Action"
-      | where Level == "Warning"
-      | where Category == "Administrative"
+    Heartbeat
       | where TimeGenerated > ago(5m)
     QUERY
     time_aggregation_method = "Count"
