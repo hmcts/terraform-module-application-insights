@@ -68,7 +68,7 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "main" {
     QUERY
     time_aggregation_method = "Count"
     operator                = "GreaterThan"
-    threshold               = 0
+    threshold               = 1
 
     failing_periods {
       minimum_failing_periods_to_trigger_alert = 1
