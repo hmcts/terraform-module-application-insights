@@ -4,7 +4,7 @@ locals {
 
   business_area = strcontains(lower(data.azurerm_subscription.current.display_name), "cnp") || strcontains(lower(data.azurerm_subscription.current.display_name), "cft") ? "cft" : "sds"
 
-  log_analytics_name = (var.env == "prod") ? "hmcts-prod" : (var.env == "aat" || var.env == "demo") ? "hmcts-nonprod" : (var.env == "perftest" || var.env == "ithc") ? "hmcts-qa" : "hmcts-sandbox"
+  log_analytics_name = (var.env == "prod") ? "hmcts-prod" : (var.env == "aat" || var.env == "demo" || var.env == "test" || var.env == "stg" || var.env == "dev") ? "hmcts-nonprod" : (var.env == "perftest" || var.env == "ithc") ? "hmcts-qa" : "hmcts-sandbox"
   log_analytics_rg   = "oms-automation"
 }
 
