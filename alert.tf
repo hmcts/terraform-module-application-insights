@@ -12,12 +12,6 @@ data "azurerm_subscription" "current" {
   subscription_id = data.azurerm_client_config.current.subscription_id
 }
 
-module "log_analytics_workspace_id" {
-  source = "git@github.com:hmcts/terraform-module-log-analytics-workspace-id?ref=master"
-
-  environment = var.env
-}
-
 resource "azurerm_monitor_activity_log_alert" "main" {
   count               = var.alert_limit_reached ? 0 : 1
   name                = "Application Insights daily cap reached - ${local.name}"
