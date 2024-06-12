@@ -6,8 +6,6 @@ locals {
 
   log_analytics_name = (var.env == "prod") ? "hmcts-prod" : (var.env == "aat" || var.env == "demo") ? "hmcts-nonprod" : (var.env == "perftest" || var.env == "ithc") ? "hmcts-qa" : "hmcts-sandbox"
   log_analytics_rg   = "oms-automation"
-
-  subscription_name = (local.log_analytics_name == "hmcts-prod") ? "DCD-CNP-Prod" : (local.log_analytics_name == "hmcts-nonprod") ? "DCD-CNP-DEV" : (local.log_analytics_name == "hmcts-qa") ? "DCD-CNP-QA" : "DCD-CFT-Sandbox"
 }
 
 data "azurerm_client_config" "current" {
@@ -99,7 +97,7 @@ resource "null_resource" "fix_scheduled_query_rules_alert_v2" {
   }
 
   provisioner "local-exec" {
-    command = format("az login --identity && az monitor scheduled-query update --disabled false --name '%s' --resource-group %s --subscription %s", azurerm_monitor_scheduled_query_rules_alert_v2.main[count.index].name, var.resource_group_name, local.subscription_name)
+    command = format("az login --identity && az monitor scheduled-query update --disabled false --name '%s' --resource-group '%s' --subscription '%s'", azurerm_monitor_scheduled_query_rules_alert_v2.main[count.index].name, var.resource_group_name, data.azurerm_client_config.current.subscription_id)
   }
 }
 
