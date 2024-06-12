@@ -51,8 +51,8 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "main" {
   name                 = "Application Insights daily cap reached - ${local.name}"
   resource_group_name  = var.resource_group_name
   location             = var.location
-  evaluation_frequency = "PT15M"
-  window_duration      = "PT15M"
+  evaluation_frequency = "P1D"
+  window_duration      = "P1D"
   severity             = 4
   scopes               = [data.azurerm_log_analytics_workspace.workspace.id]
   description          = "Monitors for application insight reaching it's daily cap."
@@ -64,7 +64,7 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "main" {
         | where OperationNameValue == "Microsoft.Insights/Components/DailyCapReached/Action"
         | where Level == "Warning"
         | where Category == "Administrative"
-        | where TimeGenerated > ago(15m)
+        | where TimeGenerated > ago(1d)
     QUERY
     time_aggregation_method = "Count"
     operator                = "GreaterThan"
