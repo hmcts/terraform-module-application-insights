@@ -99,7 +99,7 @@ resource "null_resource" "fix_scheduled_query_rules_alert_v2" {
   }
 
   provisioner "local-exec" {
-    command = "az login --identity && az monitor scheduled-query update --disabled false --name $ALERT_NAME --resource-group $RG_NAME --subscription $SUB_NAME"
+    command = "az login --identity && az monitor scheduled-query update --disabled false --name '$ALERT_NAME' --resource-group $RG_NAME --subscription $SUB_NAME"
 
     environment = {
       ALERT_NAME = azurerm_monitor_scheduled_query_rules_alert_v2.main[count.index].name
