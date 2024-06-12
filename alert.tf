@@ -88,6 +88,23 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "main" {
   tags = var.common_tags
 }
 
+# Temporary workaround for upstream issue where scheduled query rules are created in a corrupt state 
+# https://github.com/hashicorp/terraform-provider-azurerm/issues/25921
+resource "null_resource" "fix_scheduled_query_rules_alert_v2" {
+  triggers = {
+    alert_id = azurerm_monitor_scheduled_query_rules_alert_v2.main.id
+  }
+
+  provisioner "local-exec" {
+    command = "az login --identity && az monitor scheduled-query update --disabled false --name '${ALERT_NAME}' --resource-group ${RG_NAME}"
+
+    environment = {
+      ALERT_NAME = azurerm_monitor_scheduled_query_rules_alert_v2.main.name
+      RG_NAME    = var.resource_group_name
+    }
+  }
+}
+
 data "http" "cnp_team_config" {
   url = "https://raw.githubusercontent.com/hmcts/cnp-jenkins-config/master/team-config.yml"
 }
