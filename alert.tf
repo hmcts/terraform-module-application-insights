@@ -3,9 +3,6 @@ locals {
   env = (var.env == "aat") ? "stg" : (var.env == "sandbox") ? "sbox" : "${(var.env == "perftest") ? "test" : "${var.env}"}"
 
   business_area = strcontains(lower(data.azurerm_subscription.current.display_name), "cnp") || strcontains(lower(data.azurerm_subscription.current.display_name), "cft") ? "cft" : "sds"
-
-  log_analytics_name = (var.env == "prod") ? "hmcts-prod" : (var.env == "aat" || var.env == "demo" || var.env == "test" || var.env == "stg" || var.env == "dev") ? "hmcts-nonprod" : (var.env == "perftest" || var.env == "ithc") ? "hmcts-qa" : "hmcts-sandbox"
-  log_analytics_rg   = "oms-automation"
 }
 
 data "azurerm_client_config" "current" {
@@ -15,9 +12,15 @@ data "azurerm_subscription" "current" {
   subscription_id = data.azurerm_client_config.current.subscription_id
 }
 
+module "log_analytics_workspace_id" {
+  source = "git@github.com:hmcts/terraform-module-log-analytics-workspace-id?ref=master"
+
+  environment = var.env
+}
+
 data "azurerm_log_analytics_workspace" "workspace" {
-  name                = local.log_analytics_name
-  resource_group_name = local.log_analytics_rg
+  name                = module.log_analytics_workspace_id.name
+  resource_group_name = module.log_analytics_workspace_id.resource_group_name
 }
 
 resource "azurerm_monitor_activity_log_alert" "main" {
