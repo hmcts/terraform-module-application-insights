@@ -91,15 +91,16 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "main" {
 # Temporary workaround for upstream issue where scheduled query rules are created in a corrupt state 
 # https://github.com/hashicorp/terraform-provider-azurerm/issues/25921
 resource "null_resource" "fix_scheduled_query_rules_alert_v2" {
+  count = var.alert_limit_reached ? 1 : 0
   triggers = {
-    alert_id = azurerm_monitor_scheduled_query_rules_alert_v2.main.id
+    alert_id = azurerm_monitor_scheduled_query_rules_alert_v2.main[count.index].id
   }
 
   provisioner "local-exec" {
-    command = "az login --identity && az monitor scheduled-query update --disabled false --name '${ALERT_NAME}' --resource-group ${RG_NAME}"
+    command = format("az login --identity && az monitor scheduled-query update --disabled false --name '%s' --resource-group %s", azurerm_monitor_scheduled_query_rules_alert_v2.main[count.index].name, var.resource_group_name)
 
     environment = {
-      ALERT_NAME = azurerm_monitor_scheduled_query_rules_alert_v2.main.name
+      ALERT_NAME = azurerm_monitor_scheduled_query_rules_alert_v2.main[count.index].name
       RG_NAME    = var.resource_group_name
     }
   }
