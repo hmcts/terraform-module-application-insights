@@ -18,11 +18,6 @@ module "log_analytics_workspace_id" {
   environment = var.env
 }
 
-data "azurerm_log_analytics_workspace" "workspace" {
-  name                = module.log_analytics_workspace_id.name
-  resource_group_name = module.log_analytics_workspace_id.resource_group_name
-}
-
 resource "azurerm_monitor_activity_log_alert" "main" {
   count               = var.alert_limit_reached ? 0 : 1
   name                = "Application Insights daily cap reached - ${local.name}"
@@ -57,7 +52,7 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "main" {
   evaluation_frequency = "P1D"
   window_duration      = "P1D"
   severity             = 4
-  scopes               = [data.azurerm_log_analytics_workspace.workspace.id]
+  scopes               = [module.log_analytics_workspace_id.workspace_id]
   description          = "Monitors for application insight reaching it's daily cap."
 
   criteria {
