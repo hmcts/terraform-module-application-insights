@@ -99,6 +99,8 @@ resource "null_resource" "fix_scheduled_query_rules_alert_v2" {
   provisioner "local-exec" {
     command = format("az login --identity && az monitor scheduled-query update --disabled false --name '%s' --resource-group '%s' --subscription '%s'", azurerm_monitor_scheduled_query_rules_alert_v2.main[count.index].name, var.resource_group_name, data.azurerm_client_config.current.subscription_id)
   }
+
+  depends_on = [azurerm_monitor_scheduled_query_rules_alert_v2.main]
 }
 
 data "http" "cnp_team_config" {
