@@ -3,9 +3,6 @@ locals {
   env = (var.env == "aat") ? "stg" : (var.env == "sandbox") ? "sbox" : "${(var.env == "perftest") ? "test" : "${var.env}"}"
 
   business_area = strcontains(lower(data.azurerm_subscription.current.display_name), "cnp") || strcontains(lower(data.azurerm_subscription.current.display_name), "cft") ? "cft" : "sds"
-
-  log_analytics_name = (var.env == "prod") ? "hmcts-prod" : (var.env == "aat" || var.env == "demo") ? "hmcts-nonprod" : (var.env == "perftest" || var.env == "ithc") ? "hmcts-qa" : "hmcts-sandbox"
-  log_analytics_rg   = "oms-automation"
 }
 
 data "azurerm_client_config" "current" {
@@ -13,11 +10,6 @@ data "azurerm_client_config" "current" {
 
 data "azurerm_subscription" "current" {
   subscription_id = data.azurerm_client_config.current.subscription_id
-}
-
-data "azurerm_log_analytics_workspace" "workspace" {
-  name                = local.log_analytics_name
-  resource_group_name = local.log_analytics_rg
 }
 
 resource "azurerm_monitor_activity_log_alert" "main" {
@@ -54,7 +46,7 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "main" {
   evaluation_frequency = "P1D"
   window_duration      = "P1D"
   severity             = 4
-  scopes               = [data.azurerm_log_analytics_workspace.workspace.id]
+  scopes               = [module.log_analytics_workspace_id.workspace_id]
   description          = "Monitors for application insight reaching it's daily cap."
 
   criteria {
