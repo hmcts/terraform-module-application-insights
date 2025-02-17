@@ -16,9 +16,9 @@ resource "azurerm_monitor_activity_log_alert" "main" {
   count               = var.alert_limit_reached ? 0 : 1
   name                = "Application Insights daily cap reached - ${local.name}"
   resource_group_name = var.resource_group_name
-  location            = var.alert_location
+  location            = var.location
   scopes              = [azurerm_application_insights.this.id]
-  description         = "Monitors for application insight reaching it's daily cap."
+  description         = "Monitors for application insight reaching its daily cap."
 
   criteria {
     resource_id    = azurerm_application_insights.this.id
