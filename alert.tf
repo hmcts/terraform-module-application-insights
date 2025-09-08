@@ -14,7 +14,7 @@ data "azurerm_subscription" "current" {
 
 resource "azurerm_monitor_activity_log_alert" "main" {
   count               = var.alert_limit_reached ? 0 : 1
-  name                = "Application Insights daily cap reached - ${local.name}"
+  name                = "Application-Insights-daily-cap-reached-${local.name}"
   resource_group_name = var.resource_group_name
   location            = var.alert_location
   scopes              = [azurerm_application_insights.this.id]
@@ -41,7 +41,7 @@ resource "azurerm_monitor_activity_log_alert" "main" {
 
 resource "azurerm_monitor_scheduled_query_rules_alert_v2" "main" {
   count                = var.alert_limit_reached ? 1 : 0
-  name                 = "Application Insights daily cap reached - ${local.name}"
+  name                 = "Application-Insights-daily-cap-reached-${local.name}"
   resource_group_name  = var.resource_group_name
   location             = var.location
   evaluation_frequency = "P1D"
