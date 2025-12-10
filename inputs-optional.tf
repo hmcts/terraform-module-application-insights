@@ -29,7 +29,7 @@ variable "application_type" {
 
 variable "sampling_percentage" {
   default     = null
-  description = "Specifies the percentage of the data produced by the monitored application that is sampled for Application Insights telemetry. Defaults 100% for nonprod and 1% for nonprod"
+  description = "Specifies the percentage of telemetry data to sample. Defaults to 100% for production (prod/prd) and 1% for all other environments"
   type        = number
 }
 
