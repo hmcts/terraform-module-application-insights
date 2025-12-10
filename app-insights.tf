@@ -7,6 +7,7 @@ locals {
     prd     = 100
     demo    = 1
     aat     = 1
+    ithc    = 1
     dev     = 1
     staging = 1
     sandbox = 1
