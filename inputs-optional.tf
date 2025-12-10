@@ -29,7 +29,7 @@ variable "application_type" {
 
 variable "sampling_percentage" {
   default     = null
-  description = "Specifies the percentage of telemetry data to sample. Defaults to 100% for production and staging environments (prod/prd/stg/aat/staging) and 1% for all other environments."
+  description = "Specifies the percentage of telemetry data to sample. Defaults to 100% for production and 1% for all other environments."
   type        = number
 }
 
