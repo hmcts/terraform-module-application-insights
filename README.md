@@ -69,7 +69,7 @@ module "application_insights" {
 | <a name="input_override_name"></a> [override\_name](#input\_override\_name) | The default name will be product+env, this override enables a fully custom name | `string` | `null` | no |
 | <a name="input_product"></a> [product](#input\_product) | https://hmcts.github.io/glossary/#product | `string` | n/a | yes |
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | Name of existing resource group to deploy resources into | `string` | n/a | yes |
-| <a name="input_sampling_percentage"></a> [sampling\_percentage](#input\_sampling\_percentage) | Specifies the percentage of the data produced by the monitored application that is sampled for Application Insights telemetry. | `number` | `100` | no |
+| <a name="input_sampling_percentage"></a> [sampling\_percentage](#input\_sampling\_percentage) | Specifies the percentage of telemetry data to sample. Defaults to 100% for production and 1% for all other environments. | `number` | `null` | no |
 
 ## Outputs
 
