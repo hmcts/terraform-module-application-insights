@@ -2,11 +2,8 @@ locals {
   name = var.override_name == null ? (var.name == null ? "${var.product}-${var.env}" : "${var.name}-${var.env}") : var.override_name
 
   # Production environments get 100% sampling, nonprod gets 1% by default
-      sampling_percentage = (
-      var.env == "prod" || "prod" ? 100 : (
-      var.sampling_percentage != null ? var.sampling_percentage : 1
-    )
-  )
+  is_prod             = contains(["prod", "prd"], lower(var.env))
+  sampling_percentage = var.sampling_percentage != null ? var.sampling_percentage : (local.is_prod ? 100 : 1)
 }
 
 module "log_analytics_workspace_id" {
