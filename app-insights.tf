@@ -1,5 +1,18 @@
 locals {
   name = var.override_name == null ? (var.name == null ? "${var.product}-${var.env}" : "${var.name}-${var.env}") : var.override_name
+
+  # Production environments get 100% sampling, nonprod gets 1% by default
+  sampling_map = {
+    prod    = 100
+    prd     = 100
+    demo    = 1
+    aat     = 1
+    ithc    = 1
+    dev     = 1
+    staging = 1
+    sandbox = 1
+  }
+  sampling_percentage_default = var.sampling_percentage != null ? var.sampling_percentage : lookup(local.sampling_map, lower(var.env), 1)
 }
 
 module "log_analytics_workspace_id" {
@@ -17,7 +30,7 @@ resource "azurerm_application_insights" "this" {
 
   application_type     = var.application_type
   daily_data_cap_in_gb = var.daily_data_cap_in_gb
-  sampling_percentage  = var.sampling_percentage
+  sampling_percentage  = local.sampling_percentage_default
   workspace_id         = module.log_analytics_workspace_id.workspace_id
 
   daily_data_cap_notifications_disabled = true
