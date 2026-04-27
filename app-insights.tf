@@ -12,6 +12,7 @@ locals {
     staging  = 1
     sandbox  = 1
     perftest = 1
+    test     = 1
   }
   sampling_percentage_default = var.sampling_percentage != null ? var.sampling_percentage : lookup(local.sampling_map, lower(var.env), 1)
 }
