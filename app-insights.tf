@@ -3,14 +3,15 @@ locals {
 
   # Production environments get 100% sampling, nonprod gets 1% by default
   sampling_map = {
-    prod    = 100
-    prd     = 100
-    demo    = 1
-    aat     = 1
-    ithc    = 1
-    dev     = 1
-    staging = 1
-    sandbox = 1
+    prod      = 100
+    prd       = 100
+    idam-prod = 100
+    demo      = 1
+    aat       = 1
+    ithc      = 1
+    dev       = 1
+    staging   = 1
+    sandbox   = 1
   }
   sampling_percentage_default = var.sampling_percentage != null ? var.sampling_percentage : lookup(local.sampling_map, lower(var.env), 1)
 }
