@@ -14,8 +14,8 @@ module "this" {
 
   daily_data_cap_in_gb = "0.07"
   email_receiver_config = {
-    name              = "test"
-    email_address     = "test@justice.gov.uk"
+    name          = "test"
+    email_address = "test@justice.gov.uk"
   }
 
   common_tags = module.tags.common_tags
