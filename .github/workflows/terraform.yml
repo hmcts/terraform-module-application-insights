@@ -4,6 +4,9 @@ on:
   pull_request:
     branches:
       - master
+      - main
+      - 4.x
+      - 5.x
 
 jobs:
   terraform:

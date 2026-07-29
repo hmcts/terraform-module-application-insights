@@ -36,7 +36,7 @@ resource "azurerm_application_insights" "this" {
   sampling_percentage  = local.sampling_percentage_default
   workspace_id         = module.log_analytics_workspace_id.workspace_id
 
-  daily_data_cap_notifications_disabled = true
+  daily_data_cap_notifications_enabled = false
 
   tags = var.common_tags
 }

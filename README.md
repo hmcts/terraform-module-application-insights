@@ -7,7 +7,7 @@ Terraform module for [Application Insights](https://registry.terraform.io/provid
 
 ```hcl
 module "application_insights" {
-  source = "git@github.com:hmcts/terraform-module-application-insights?ref=4.x"
+  source = "git@github.com:hmcts/terraform-module-application-insights?ref=5.x"
 
   product = var.product
   env     = var.env
@@ -24,13 +24,13 @@ module "application_insights" {
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | >= 3.7.0 |
+| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | >= 5.0.0, < 6.0.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | >= 3.7.0 |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | >= 5.0.0, < 6.0.0 |
 | <a name="provider_http"></a> [http](#provider\_http) | n/a |
 | <a name="provider_null"></a> [null](#provider\_null) | n/a |
 
